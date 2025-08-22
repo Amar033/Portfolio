@@ -185,7 +185,7 @@ export default function MusicPlayer() {
   const [mini, setMini] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const audioRef = useRef<typeof ReactPlayer>(null);
+  // const audioRef = useRef<typeof ReactPlayer>(null);
 
   /** Next/Prev */
   const nextTrack = () => {
