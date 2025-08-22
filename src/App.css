@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+
+/* CRT + scanline + slight curvature */
+.crt-effect {
+  position: relative;
+  isolation: isolate;
+}
+.pixel-emoji {
+  image-rendering: pixelated;
+  filter: grayscale(100%);
+}
+
+.crt-effect::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,0.05), rgba(0,0,0,0.35)),
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0px, rgba(0,0,0,0.25) 1px, transparent 2px, transparent 3px);
+  mix-blend-mode: screen;
+  opacity: 0.45;
+  border-radius: 24px;
+}
+.crt-effect::after {
+  /* slight barrel distortion vignette */
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(100% 120% at 50% 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.35) 100%);
+  border-radius: 24px;
+}
+
+/* pixelated images */
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}

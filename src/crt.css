@@ -1,0 +1,36 @@
+/* Tailwind base/components/utilities should already be imported above this comment if you scaffolded with Tailwind */
+/* CRT effect */
+.crt-effect {
+  position: relative;
+  background: radial-gradient(circle at center, #003366 0%, #001a33 100%);
+  overflow: hidden;
+}
+
+.crt-effect::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.04) 0px,
+    rgba(255,255,255,0.04) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+}
+
+.crt-effect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.06), transparent 70%);
+  mix-blend-mode: screen;
+  animation: crt-flicker 0.18s infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes crt-flicker {
+  from { opacity: 0.15; }
+  to   { opacity: 0.35; }
+}

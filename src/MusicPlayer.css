@@ -1,0 +1,13 @@
+.cyber-btn {
+  padding: 2px 6px;
+  background: #1b2a31;
+  border: 1px solid #6fb6c4;
+  color: #cfeef5;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.cyber-btn:hover {
+  background: #243943;
+  box-shadow: 0 0 5px #6fb6c4;
+}
