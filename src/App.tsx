@@ -7,6 +7,10 @@ import Profile from "./components/Profile";
 import Resume from "./components/Resume";
 import MusicPlayer from "./components/MusicPlayer";
 import "./App.css";
+import Terminal from "./components/Terminal";
+
+
+
 
 /** Keep ids as strings everywhere to avoid TS mismatches */
 type WinId =
@@ -18,10 +22,12 @@ type WinId =
   | "contact"
   | "hobbies"
   | "clock"
-  | "music";
+  | "music"
+  | "terminal";
 
 export default function App() {
   /** Window z-order */
+  const [theme, setTheme] = useState<"p3"|"p4"|"p5"|"base">("base");
   const [openOrder, setOpenOrder] = useState<WinId[]>(["profile"]);
   const [active, setActive] = useState<WinId | null>("profile");
 
@@ -35,6 +41,7 @@ export default function App() {
     hobbies: "Hobbies",
     clock: "Clock",
     music: "Music",
+    terminal: "Terminal",
   };
 
   const icons = useMemo(
@@ -47,6 +54,8 @@ export default function App() {
       { id: "clock" as WinId, title: "Clock", icon: <span className="pixel-emoji">⏰</span> },
       { id: "resume" as WinId, title: "Resume.exe", icon: <span className="pixel-emoji">📄</span> },
       { id: "music" as WinId, title: "Music.exe", icon: <span className="pixel-emoji">🎵</span> },
+      { id: "terminal" as WinId, title: "Terminal", icon: <span className="pixel-emoji">💻</span> },
+      
     ],
     []
   );
@@ -63,6 +72,13 @@ export default function App() {
       case "hobbies": return <HobbiesContent />;
       case "clock": return <LiveClock />;
       case "music": return <MusicPlayer />;
+      case "terminal":
+  return (
+    <Terminal
+      onOpenWindow={(id) => openWindow(id as any)}
+      onPersonaShift={(t) => setTheme(t as any)}
+    />
+  );
       default: return <p>Unknown Window</p>;
     }
   };
@@ -84,8 +100,17 @@ export default function App() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-black">
       {/* CRT frame */}
-      <div className="relative h-screen w-auto aspect-[4/3] mx-auto bg-[#0b1016] text-[#cfeef5] overflow-hidden crt-effect rounded-[24px] ring-1 ring-[#22303a] shadow-[0_0_0_6px_#0b1016,0_0_60px_rgba(0,255,255,0.1)_inset]">
-
+      {/* <div className="relative h-screen w-auto aspect-[4/3] mx-auto bg-[#0b1016] text-[#cfeef5] overflow-hidden crt-effect rounded-[24px] ring-1 ring-[#22303a] shadow-[0_0_0_6px_#0b1016,0_0_60px_rgba(0,255,255,0.1)_inset]"> */}
+      <div
+  className={[
+    "relative h-screen w-auto aspect-[4/3] mx-auto text-[#cfeef5] overflow-hidden rounded-[24px]",
+    "ring-1 shadow-[0_0_0_6px_#0b1016,0_0_60px_rgba(0,255,255,0.1)_inset]",
+    theme === "p3" ? "bg-[#0b1016] ring-[#1b3d7a]" :
+    theme === "p4" ? "bg-[#0b1016] ring-[#c8a600]" :
+    theme === "p5" ? "bg-[#0b1016] ring-[#c40029]" :
+                      "bg-[#0b1016] ring-[#22303a]"
+  ].join(" ")}
+>
         {/* Wallpaper */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,#0f1a22_0%,#0b1016_60%,#081017_100%)] z-0" />
 
